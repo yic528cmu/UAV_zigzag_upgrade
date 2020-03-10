@@ -46,6 +46,8 @@ float HEIGHT_DESIRE;
 
 int MAX_HEIGHT_LEVEL;
 
+float NO_WALL_TOP_THRESHOLD = 100; // counter threshold
+
 ifstream posData;
 
 const float deg2rad = AS_PI/180.0;
@@ -82,6 +84,8 @@ float dist_to_wall;
 
 int control = 0;
 int no_wall_counter = 0;
+int no_wall_at_top_counter = 0;
+
 
 double yaw_change = 0;
 
@@ -584,8 +588,8 @@ int main(int argc, char** argv)
     {
         ROS_INFO("D: %f --> %f,current height level: %d --> %d",offsetDistance, MAX_HORIZONTAL_MOVEMENT, height_level, MAX_HEIGHT_LEVEL);
     }
-
-    if (abs(offsetDistance) > MAX_HORIZONTAL_MOVEMENT && height_level == MAX_HEIGHT_LEVEL)
+    // Check if task is finished
+    if (no_wall_at_top_counter > NO_WALL_TOP_THRESHOLD || (abs(offsetDistance) > MAX_HORIZONTAL_MOVEMENT && height_level == MAX_HEIGHT_LEVEL))
     {
       ROS_INFO("Wall inspection task is accomplished, please land the UAV!");
       while(ros::ok())
@@ -636,13 +640,19 @@ int main(int argc, char** argv)
       }
     }
     // FINISHED ONE MOVEMENT
-    if (abs(offsetDistance) > MAX_HORIZONTAL_MOVEMENT && !directionChanged)
+    // Change state either when no wall is detected (truncate algorithm) or horizontal movement is reached.
+    if (!directionChanged && (dist_to_wall > 5  || abs(offsetDistance) > MAX_HORIZONTAL_MOVEMENT)) // may need to add counter
     {
       height_level ++;
       directionChanged = true;
       start_gps_location = current_gps;
       ROS_INFO("UAV move up and change direction!");
+      no_wall_at_top_counter = 0; // reset the no_Wall counter at top
     }
+    if (dist_to_wall > 5) {
+      no_wall_counter++;
+    }
+
     // CHANGE THE DIRECTION BACK
     if (abs(y_velocity) == 0.25 && abs(z_change) < 0.1)
     {
