@@ -641,16 +641,16 @@ int main(int argc, char** argv)
     }
     // FINISHED ONE MOVEMENT
     // Change state either when no wall is detected (truncate algorithm) or horizontal movement is reached.
-    if (!directionChanged && (dist_to_wall > 5  || abs(offsetDistance) > MAX_HORIZONTAL_MOVEMENT)) // may need to add counter
-    {
+    if (!directionChanged && (abs(dist_to_wall-DESIRED_DISTANCE_TO_WALL)>0.5  || abs(offsetDistance) > MAX_HORIZONTAL_MOVEMENT)) // may need to add counter
       height_level ++;
       directionChanged = true;
       start_gps_location = current_gps;
       ROS_INFO("UAV move up and change direction!");
       no_wall_at_top_counter = 0; // reset the no_Wall counter at top
     }
-    if (dist_to_wall > 5) {
-      no_wall_counter++;
+    if (abs(dist_to_wall-DESIRED_DISTANCE_TO_WALL)>0.5) {
+      no_wall_at_top_counter++;
+      ROS_INFO("truncate counter : %d --> %f", no_wall_at_top_counter, NO_WALL_TOP_THRESHOLD);
     }
 
     // CHANGE THE DIRECTION BACK
