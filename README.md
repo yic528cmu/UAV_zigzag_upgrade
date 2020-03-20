@@ -10,8 +10,11 @@ Add Truncate algorithm when maximum height is reached.
 1. Please update the previous zigzag script with this new one.
   
     Replace
+    
     catkin_ws/src/Onboard-SDK-ROS/dji_sdk_demo/src/demo_flight_control_one_plane_zigzag.cpp
+    
     with 
+    
     demo_flight_control_one_plane_zigzag.cpp
 
 2. Catkin_make the workspace with the new script.
