@@ -7,14 +7,17 @@ Add Truncate algorithm when maximum height is reached.
 
 ## Action to do
 
-Please update the previous zigzag script with this new one.
+1. Please update the previous zigzag script with this new one.
 
-Catkin_make the workspace with the new script.
+2. Catkin_make the workspace with the new script.
 
-Please make sure the GPS signal is at level 4 before run control_taker.
+3. Please make sure the GPS signal is at level 4 before run control_taker.
+
+4. Make sure all the settings are within the range specified in the below section.
 
 ## More clarification on setting
 
+```Formula to calculate maximum height:```
 
 ```maximum height for the task = initial_height + height_steps * maximum_height ```
 
