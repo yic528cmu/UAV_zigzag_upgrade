@@ -29,6 +29,8 @@ Add Truncate algorithm when maximum height is reached.
 
 ```maximum height for the task = initial_height + height_steps * maximum_height ```
 
+You can adjust setting in catkin_ws/src/configuration.txt to desired setting
+
 distance_to_wall **(2m < setting < 5m)**:distance to maintain to wall
 
 initial_height : starting height of the UAV drone
