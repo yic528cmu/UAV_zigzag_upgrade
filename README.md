@@ -31,25 +31,40 @@ Add Truncate algorithm when maximum height is reached.
 
 **You can adjust setting in catkin_ws/src/configuration.txt to desired setting**
 
+
 **distance_to_wall**
 
-```Description: Distance to maintain to the wall
+Description: Distance to maintain to the wall
 
 Restriction: **(2m < distance_to_wall < 5m)** 
 
 If smaller than 2m, the dji app will forbid action. If larger than 5m, the camera fails to find a wall.
-```
-
-initial_height : starting height of the UAV drone
-
-height_change_distance **(Less than actually horizontal distance of the wall)**: horziontal distance change
-
-height_steps : height change for each step of the movement
-
-maximum_height **(Integer)**: maximum height steps to perform
 
 
-** Words in highlight are the restrictions for the input setting **
+**initial_height**
+
+Description: desired starting height of the UAV drone
+
+
+**height_change_distance**
+
+Description: Horziontal distance change for one zigzag movement
+
+Restriction: **(Less than actually horizontal distance of the wall)**
+
+
+**height_steps**
+
+Description: height change for each step of the movement
+
+
+**maximum_height**
+
+Description: Maximum height steps to perform
+
+Restriction: **(Has to be Integer)**
+
+** Words in highlight are the restrictions for the input setting to obey**
 
 
 **Please let me know if there is more guide that you need: yicui@andrew.cmu.edu **
